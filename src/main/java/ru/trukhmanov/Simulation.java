@@ -4,7 +4,9 @@ import ru.trukhmanov.actions.ActionsCommand;
 import ru.trukhmanov.actions.InitActions;
 import ru.trukhmanov.actions.TurnActions;
 
-
+/**
+ * Главынй класс приожения, отвечает за симуляуию мира
+ */
 public class Simulation {
     private WorldMap worldMap = new WorldMap(15, 15);
     private Renderer renderer = new Renderer(worldMap);

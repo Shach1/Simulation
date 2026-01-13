@@ -1,7 +1,7 @@
 package ru.trukhmanov.fabrica;
 
-import ru.trukhmanov.entity.Entity;
-import ru.trukhmanov.entity.Tree;
+import ru.trukhmanov.entities.Entity;
+import ru.trukhmanov.entities.Tree;
 
 public class TreeFabrica implements EntityFabrica{
     @Override

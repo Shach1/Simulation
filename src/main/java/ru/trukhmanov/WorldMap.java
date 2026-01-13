@@ -1,6 +1,6 @@
 package ru.trukhmanov;
 
-import ru.trukhmanov.entity.Entity;
+import ru.trukhmanov.entities.Entity;
 
 import java.util.HashMap;
 

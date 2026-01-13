@@ -1,6 +1,5 @@
-package ru.trukhmanov.entity;
+package ru.trukhmanov.entities;
 
-import ru.trukhmanov.Coordinates;
 
 /**
  * Статический объект камень

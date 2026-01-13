@@ -2,9 +2,6 @@ package ru.trukhmanov.actions;
 
 import ru.trukhmanov.Coordinates;
 import ru.trukhmanov.WorldMap;
-import ru.trukhmanov.entity.Grass;
-import ru.trukhmanov.entity.Rock;
-import ru.trukhmanov.entity.Tree;
 import ru.trukhmanov.fabrica.*;
 
 import java.util.Random;

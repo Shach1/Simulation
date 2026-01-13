@@ -1,7 +1,7 @@
 package ru.trukhmanov.fabrica;
 
-import ru.trukhmanov.entity.Entity;
-import ru.trukhmanov.entity.Rock;
+import ru.trukhmanov.entities.Entity;
+import ru.trukhmanov.entities.Rock;
 
 public class RockFabrica implements EntityFabrica{
     @Override

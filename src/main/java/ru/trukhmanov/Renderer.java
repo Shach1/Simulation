@@ -1,7 +1,10 @@
 package ru.trukhmanov;
 
-import ru.trukhmanov.entity.*;
+import ru.trukhmanov.entities.*;
 
+/**
+ * Класс для отрисовки карты в консоль
+ */
 public class Renderer {
     private final WorldMap worldMap;
 

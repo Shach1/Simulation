@@ -1,7 +1,7 @@
 package ru.trukhmanov.fabrica;
 
-import ru.trukhmanov.entity.Entity;
-import ru.trukhmanov.entity.Grass;
+import ru.trukhmanov.entities.Entity;
+import ru.trukhmanov.entities.Grass;
 
 public class GrassFabrica implements EntityFabrica{
     @Override

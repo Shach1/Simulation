@@ -1,7 +1,7 @@
 package ru.trukhmanov.fabrica;
 
-import ru.trukhmanov.entity.Entity;
-import ru.trukhmanov.entity.Predator;
+import ru.trukhmanov.entities.Entity;
+import ru.trukhmanov.entities.Predator;
 
 public class PredatorFabrica implements EntityFabrica{
     @Override

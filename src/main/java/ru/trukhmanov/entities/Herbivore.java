@@ -1,6 +1,5 @@
-package ru.trukhmanov.entity;
+package ru.trukhmanov.entities;
 
-import ru.trukhmanov.Coordinates;
 
 /**
  * Травоядное существо. Стремятся найти ресурс (Grass), \
@@ -11,7 +10,11 @@ public class Herbivore extends Creature{
         super(healthPoints, moveSpeed);
     }
 
-    public void eatGrass(){
-
+    public boolean eatGrass(Entity entity){
+        if (entity instanceof Grass grass){
+            healHealthPoints(10);
+            return true;
+        }
+        return false;
     }
 }

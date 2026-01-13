@@ -1,7 +1,7 @@
 package ru.trukhmanov.fabrica;
 
-import ru.trukhmanov.entity.Entity;
-import ru.trukhmanov.entity.Herbivore;
+import ru.trukhmanov.entities.Entity;
+import ru.trukhmanov.entities.Herbivore;
 
 public class HerbivoreFabrica implements EntityFabrica{
     @Override
