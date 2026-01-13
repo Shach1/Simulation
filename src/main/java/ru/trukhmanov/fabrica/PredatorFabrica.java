@@ -6,6 +6,6 @@ import ru.trukhmanov.entities.Predator;
 public class PredatorFabrica implements EntityFabrica{
     @Override
     public Entity getEntity() {
-        return new Predator(5, 3, 1);
+        return new Predator(null,3, 5, 5);
     }
 }

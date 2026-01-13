@@ -9,10 +9,20 @@ public abstract class Creature extends Entity{
     public final int moveSpeed;
     private int healthPoints;
     private boolean isAlive = true;
+    private Coordinates coordinates;
 
-    public Creature(int healthPoints, int moveSpeed) {
-        this.healthPoints = healthPoints;
+    public void setCoordinates(Coordinates coordinates){
+        if (coordinates == null) return;
+        this.coordinates = coordinates;
+    }
+    public Coordinates getCoordinates() {
+        return coordinates;
+    }
+
+    public Creature(Coordinates coordinates, int moveSpeed, int healthPoints) {
+        this.coordinates = coordinates;
         this.moveSpeed = moveSpeed;
+        this.healthPoints = healthPoints;
     }
 
     public boolean isAlive() {

@@ -1,5 +1,6 @@
 package ru.trukhmanov;
 
+import ru.trukhmanov.entities.Creature;
 import ru.trukhmanov.entities.Entity;
 
 import java.util.HashMap;
@@ -22,7 +23,7 @@ public class WorldMap {
         if (coordinates.x() > weight || coordinates.y() > height) return false;
 
         entitysMap.put(coordinates, entity);
-        entity.setCoordinates(coordinates);
+        if (entity instanceof Creature creature) creature.setCoordinates(coordinates);
         return true;
     }
 
