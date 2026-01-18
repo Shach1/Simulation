@@ -1,8 +1,6 @@
 package ru.trukhmanov.entities;
 
 
-import ru.trukhmanov.Coordinates;
-
 /**
  * Хищное существо. Стремится найти травоядное.
  * Может потратить свой ход на чтобы:
@@ -13,8 +11,8 @@ import ru.trukhmanov.Coordinates;
 public class Predator extends Creature{
     final int attackDamage;
 
-    public Predator(Coordinates coordinates, int moveSpeed, int healthPoints, int attackDamage) {
-        super(coordinates, moveSpeed, healthPoints);
+    public Predator(int moveSpeed, int healthPoints, int attackDamage) {
+        super(moveSpeed, healthPoints);
         this.attackDamage = attackDamage;
     }
 

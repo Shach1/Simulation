@@ -1,7 +1,5 @@
 package ru.trukhmanov.entities;
 
-import ru.trukhmanov.Coordinates;
-
 /**
  * Класс для существ способных двигаться
  */
@@ -9,18 +7,8 @@ public abstract class Creature extends Entity{
     public final int moveSpeed;
     private int healthPoints;
     private boolean isAlive = true;
-    private Coordinates coordinates;
 
-    public void setCoordinates(Coordinates coordinates){
-        if (coordinates == null) return;
-        this.coordinates = coordinates;
-    }
-    public Coordinates getCoordinates() {
-        return coordinates;
-    }
-
-    public Creature(Coordinates coordinates, int moveSpeed, int healthPoints) {
-        this.coordinates = coordinates;
+    public Creature(int moveSpeed, int healthPoints) {
         this.moveSpeed = moveSpeed;
         this.healthPoints = healthPoints;
     }
@@ -29,8 +17,9 @@ public abstract class Creature extends Entity{
         return isAlive;
     }
 
-    public void makeMove(Coordinates target){
-        setCoordinates(target);
+    // TODO: Реализовать
+    public void makeMove(){
+
     }
 
     public void healHealthPoints(int healthPoints){

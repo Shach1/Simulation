@@ -6,6 +6,6 @@ import ru.trukhmanov.entities.Herbivore;
 public class HerbivoreFabrica implements EntityFabrica{
     @Override
     public Entity getEntity() {
-        return new Herbivore(null, 2, 3);
+        return new Herbivore(2, 3);
     }
 }
