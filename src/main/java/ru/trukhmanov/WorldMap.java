@@ -32,8 +32,8 @@ public class WorldMap {
     }
 
     public boolean isCoordinatesInWorldMapBoundaries(Coordinates coordinates){
-        if (coordinates.y() < minimumHeight || coordinates.y() > maximumHeight) return false;
-        if (coordinates.x() < minimumWeight || coordinates.x() > maximumHeight) return false;
+        if (minimumHeight > coordinates.y() || coordinates.y() > maximumHeight) return false;
+        if (minimumWeight > coordinates.x() || coordinates.x() > maximumWeight) return false;
         return true;
     }
 
