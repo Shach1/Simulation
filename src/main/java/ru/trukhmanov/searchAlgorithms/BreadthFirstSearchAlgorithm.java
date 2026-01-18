@@ -2,56 +2,29 @@ package ru.trukhmanov.searchAlgorithms;
 
 import ru.trukhmanov.Coordinates;
 import ru.trukhmanov.WorldMap;
-import ru.trukhmanov.entities.Grass;
-import ru.trukhmanov.entities.Herbivore;
+import ru.trukhmanov.searchAlgorithms.rules.EntitySearchRule;
+import ru.trukhmanov.searchAlgorithms.rules.RuleForGrass;
+import ru.trukhmanov.searchAlgorithms.rules.RuleForHerbivore;
 
 import java.util.*;
 
 /**
- * Самописная реализация алгоритма BFS
+ * Самописная реализация алгоритма поиска в ширину (BFS)
  *  <a href="https://ru.wikipedia.org/wiki/Поиск_в_ширину">Подробнее об алгоритме</a>
- * @see PathfindingAlgorithm
  */
-public class BreadthFirstSearch implements PathfindingAlgorithm{
+public class BreadthFirstSearchAlgorithm implements PathfindingAlgorithm{
 
     @Override
     public Optional<Coordinates> searchGrassCoordinates(WorldMap worldMap, Coordinates startingPosition) {
-        Set<Coordinates> visitedCoordinates = new HashSet<>();
-        visitedCoordinates.add(startingPosition);
-        Queue<Coordinates> availableEdges = new LinkedList<>(getAvailableEdges(
-                worldMap,
-                startingPosition,
-                visitedCoordinates
-        ));
-        Iterator<Coordinates> availableEdgesIterator;
-        Coordinates edge;
-        while (!availableEdges.isEmpty()){
-            availableEdgesIterator = availableEdges.iterator();
-            while (availableEdgesIterator.hasNext()){
-                edge = availableEdgesIterator.next();
-                if (worldMap.isEmptyCell(edge))continue;
-                if (!(worldMap.getEntityByCoordinates(edge) instanceof Grass)){
-                    availableEdgesIterator.remove();
-                    continue;
-                }
-                return Optional.of(edge);
-            }
-
-            List<Coordinates> listForIteration = new LinkedList<>(availableEdges);
-            for(Coordinates emptyCeil : listForIteration) {
-                availableEdges.addAll(getAvailableEdges(
-                        worldMap,
-                        emptyCeil,
-                        visitedCoordinates
-                ));
-                availableEdges.remove();
-            }
-        }
-        return Optional.empty();
+        return searchEntityCoordinatesByRule(worldMap, startingPosition, new RuleForGrass());
     }
 
     @Override
     public Optional<Coordinates> searchHerbivoreCoordinates(WorldMap worldMap, Coordinates startingPosition) {
+        return searchEntityCoordinatesByRule(worldMap, startingPosition, new RuleForHerbivore());
+    }
+
+    private Optional<Coordinates> searchEntityCoordinatesByRule(WorldMap worldMap, Coordinates startingPosition, EntitySearchRule entitySearchRule){
         Set<Coordinates> visitedCoordinates = new HashSet<>();
         visitedCoordinates.add(startingPosition);
         Queue<Coordinates> availableEdges = new LinkedList<>(getAvailableEdges(
@@ -65,22 +38,21 @@ public class BreadthFirstSearch implements PathfindingAlgorithm{
             availableEdgesIterator = availableEdges.iterator();
             while (availableEdgesIterator.hasNext()){
                 edge = availableEdgesIterator.next();
-                if (worldMap.isEmptyCell(edge))continue;
-                if (!(worldMap.getEntityByCoordinates(edge) instanceof Herbivore)){
+                if (worldMap.isEmptyCell(edge)) continue;
+                if (!(entitySearchRule.checkEntity(worldMap, edge))){
                     availableEdgesIterator.remove();
                     continue;
                 }
                 return Optional.of(edge);
             }
 
-            List<Coordinates> listForIteration = new LinkedList<>(availableEdges);
-            for(Coordinates emptyCeil : listForIteration) {
+            int iterativeSize = availableEdges.size();
+            for(int i = 0; i < iterativeSize; i++) {
                 availableEdges.addAll(getAvailableEdges(
                         worldMap,
-                        emptyCeil,
+                        availableEdges.remove(),
                         visitedCoordinates
                 ));
-                availableEdges.remove();
             }
         }
         return Optional.empty();
