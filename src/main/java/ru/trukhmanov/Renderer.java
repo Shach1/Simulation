@@ -13,9 +13,9 @@ public class Renderer {
     }
 
     public void renderMap(){
-        for (int h = worldMap.height; h > 0; h--){
+        for (int h = worldMap.maximumHeight; h > 0; h--){
             StringBuilder line = new StringBuilder(String.format("%2d ", h));
-            for (int w = 1; w < worldMap.weight + 1; w++){
+            for (int w = 1; w < worldMap.maximumWeight + 1; w++){
                 Coordinates coordinates = new Coordinates(w, h);
                 if (worldMap.isEmptyCell(coordinates)) line.append("[  ]");
                 else line.append(getEntitySprite(worldMap.getEntityByCoordinates(coordinates)));

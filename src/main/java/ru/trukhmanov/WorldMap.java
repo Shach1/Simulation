@@ -10,20 +10,30 @@ import java.util.HashMap;
  */
 public class WorldMap {
     private final java.util.Map<Coordinates, Entity> entitysMap = new HashMap<>();
-    public final int height;
-    public final int weight;
+    public final int minimumHeight;
+    public final int maximumHeight;
+    public final int minimumWeight;
+    public final int maximumWeight;
 
-    public WorldMap(int height, int weight) {
-        this.height = height;
-        this.weight = weight;
+    public WorldMap(int maximumHeight, int maximumWeight) {
+        this.minimumWeight = 1;
+        this.minimumHeight = 1;
+        this.maximumHeight = maximumHeight;
+        this.maximumWeight = maximumWeight;
     }
 
     public boolean setEntityOnMap(Coordinates coordinates, Entity entity){
         if (entitysMap.containsKey(coordinates)) return false;
-        if (coordinates.x() > weight || coordinates.y() > height) return false;
+        if (coordinates.x() > maximumWeight || coordinates.y() > maximumHeight) return false;
 
         entitysMap.put(coordinates, entity);
         if (entity instanceof Creature creature) creature.setCoordinates(coordinates);
+        return true;
+    }
+
+    public boolean isCoordinatesInWorldMapBoundaries(Coordinates coordinates){
+        if (coordinates.y() < minimumHeight || coordinates.y() > maximumHeight) return false;
+        if (coordinates.x() < minimumWeight || coordinates.x() > maximumHeight) return false;
         return true;
     }
 
@@ -36,10 +46,12 @@ public class WorldMap {
     }
 
     public Entity getEntityByCoordinates(Coordinates coordinates){
-        return entitysMap.get(coordinates);
+        Entity result = entitysMap.get(coordinates);
+        if (result == null) throw new RuntimeException("This ceil is empty.");
+        return result;
     }
 
     public int size(){
-        return height * weight;
+        return maximumHeight * maximumWeight;
     }
 }

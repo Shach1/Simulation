@@ -39,8 +39,8 @@ public class InitActions implements ActionsCommand{
             while (!isPlacedEntity){
                 if (worldMap.setEntityOnMap(
                         new Coordinates(
-                                random.nextInt(worldMap.height) + 1,
-                                random.nextInt(worldMap.weight) + 1
+                                random.nextInt(worldMap.maximumHeight) + 1,
+                                random.nextInt(worldMap.maximumWeight) + 1
                         ),
                         entityFabrica.getEntity())){
                     tempConuter++;
