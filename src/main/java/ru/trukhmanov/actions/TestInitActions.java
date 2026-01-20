@@ -25,15 +25,17 @@ public class TestInitActions implements ActionsCommand {
 
         var herbivoreCoordinates1 = new Coordinates(1, 1);
         var predatorCoordinates1 = new Coordinates(5, 5);
-        var grassCoordinates1 = new Coordinates(2, 4);
+        var grassCoordinates1 = new Coordinates(2, 2);
+        var grassCoordinates2 = new Coordinates(1, 2);
 
 
         worldMap.setEntityOnMap(herbivoreCoordinates1, herbivoreFabrica.getEntity());
         worldMap.setEntityOnMap(predatorCoordinates1, predatorFabrica.getEntity());
         worldMap.setEntityOnMap(grassCoordinates1, grassFabrica.getEntity());
+        worldMap.setEntityOnMap(grassCoordinates2, grassFabrica.getEntity());
 
-        var resultOfSearchGrass = pathfindingAlgorithm.searchGrassCoordinates(worldMap, herbivoreCoordinates1);
-        var resultOfSearchHerbivore = pathfindingAlgorithm.searchHerbivoreCoordinates(worldMap, predatorCoordinates1);
+        var resultOfSearchGrass = pathfindingAlgorithm.findPathToNearestGrass(worldMap, herbivoreCoordinates1);
+        var resultOfSearchHerbivore = pathfindingAlgorithm.findPathToNearestHerbivore(worldMap, predatorCoordinates1);
         System.out.println("resultOfSearchHerbivore = " + resultOfSearchHerbivore);
         System.out.println("resultOfSearchGrass = " + resultOfSearchGrass);
         int sf = 123;
