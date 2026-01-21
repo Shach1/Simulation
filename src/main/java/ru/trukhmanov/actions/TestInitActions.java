@@ -17,7 +17,7 @@ public class TestInitActions implements ActionsCommand {
 
     @Override
     public void execute() {
-        var pathfindingAlgorithm = new BreadthFirstSearchAlgorithm();
+        var pathfindingAlgorithm = new BreadthFirstSearchAlgorithm(worldMap);
 
         EntityFabrica herbivoreFabrica = new HerbivoreFabrica();
         EntityFabrica predatorFabrica = new PredatorFabrica();
@@ -34,8 +34,8 @@ public class TestInitActions implements ActionsCommand {
         worldMap.setEntityOnMap(grassCoordinates1, grassFabrica.getEntity());
         worldMap.setEntityOnMap(grassCoordinates2, grassFabrica.getEntity());
 
-        var resultOfSearchGrass = pathfindingAlgorithm.findPathToNearestGrass(worldMap, herbivoreCoordinates1);
-        var resultOfSearchHerbivore = pathfindingAlgorithm.findPathToNearestHerbivore(worldMap, predatorCoordinates1);
+        var resultOfSearchGrass = pathfindingAlgorithm.findPathToNearestGrass(herbivoreCoordinates1);
+        var resultOfSearchHerbivore = pathfindingAlgorithm.findPathToNearestHerbivore(predatorCoordinates1);
         System.out.println("resultOfSearchHerbivore = " + resultOfSearchHerbivore);
         System.out.println("resultOfSearchGrass = " + resultOfSearchGrass);
         int sf = 123;

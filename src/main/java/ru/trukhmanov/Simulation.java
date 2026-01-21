@@ -19,10 +19,10 @@ public class Simulation {
     private final ActionsCommand initActions;
     private final ActionsCommand turnActions;
 
-    /** Конструктор для ручного тестирования симуляцию */
+    /** Конструктор для ручного тестирования симуляции */
     public Simulation(boolean test){
         this.worldMap = new WorldMap(5, 5);
-        this.pathfindingAlgorithm = new BreadthFirstSearchAlgorithm();
+        this.pathfindingAlgorithm = new BreadthFirstSearchAlgorithm(worldMap);
 
         renderer = new Renderer(worldMap);
         initActions = new TestInitActions(worldMap);
