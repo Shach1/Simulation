@@ -1,11 +1,10 @@
 package ru.trukhmanov;
 
-import ru.trukhmanov.actions.ActionsCommand;
-import ru.trukhmanov.actions.InitActions;
-import ru.trukhmanov.actions.TestInitActions;
-import ru.trukhmanov.actions.TurnActions;
+import ru.trukhmanov.actions.*;
 import ru.trukhmanov.searchAlgorithms.BreadthFirstSearchAlgorithm;
-import ru.trukhmanov.searchAlgorithms.PathfindingAlgorithm;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Главынй класс приожения, отвечает за симуляуию мира
@@ -13,40 +12,40 @@ import ru.trukhmanov.searchAlgorithms.PathfindingAlgorithm;
 public class Simulation {
     private WorldMap worldMap;
     private Renderer renderer;
-    private PathfindingAlgorithm pathfindingAlgorithm;
     private int turnCounter = 0;
 
-    private final ActionsCommand initActions;
-    private final ActionsCommand turnActions;
+    private final ActionCommand initAction;
+    private final List<ActionCommand> turnActions = new LinkedList<>();
 
     /** Конструктор для ручного тестирования симуляции */
     public Simulation(boolean test){
         this.worldMap = new WorldMap(5, 5);
-        this.pathfindingAlgorithm = new BreadthFirstSearchAlgorithm(worldMap);
 
         renderer = new Renderer(worldMap);
-        initActions = new TestInitActions(worldMap);
-        turnActions = new TurnActions(worldMap);
+        initAction = new TestInitAction(worldMap);
+
+        turnActions.add(new MoveAndTryEatForAllCreaturesAction(worldMap, renderer, new BreadthFirstSearchAlgorithm(worldMap)));
+        turnActions.add(new RestoreStaminaForAllCreaturesAction(worldMap));
     }
 
-    public Simulation(WorldMap worldMap, PathfindingAlgorithm pathfindingAlgorithm){
+    public Simulation(WorldMap worldMap){
         this.worldMap = worldMap;
-        this.pathfindingAlgorithm = pathfindingAlgorithm;
 
         renderer = new Renderer(worldMap);
-        initActions = new InitActions(worldMap);
-        turnActions = new TurnActions(worldMap);
+        initAction = new InitAction(worldMap);
     }
 
     public void initSimulation(){
-        initActions.execute();
+        initAction.execute();
         renderer.renderMap();
         startSimulation();
     }
 
     private void startSimulation(){
         // TODO: игровой цикл
-
+        for(var obj : turnActions) {
+            obj.execute();
+        }
     }
 
     private void pauseSimulation(){

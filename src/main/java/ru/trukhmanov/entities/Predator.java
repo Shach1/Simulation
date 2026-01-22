@@ -16,13 +16,15 @@ public class Predator extends Creature{
         this.attackDamage = attackDamage;
     }
 
-    public void attackHerbivore(Entity entity){
+    @Override
+    public boolean tryEatEntity(Entity entity) {
         if (entity instanceof Herbivore herbivore){
             herbivore.takeDamage(attackDamage);
             if (!herbivore.isAlive()){
                 healHealthPoints(15);
+                return true;
             }
         }
-
+        return false;
     }
 }

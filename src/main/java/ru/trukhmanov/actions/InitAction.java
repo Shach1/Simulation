@@ -6,14 +6,11 @@ import ru.trukhmanov.fabrica.*;
 
 import java.util.Random;
 
-public class InitActions implements ActionsCommand{
-    Random random = new Random();
-    private final WorldMap worldMap;
-    boolean isPlacedEntity = false;
+public class InitAction extends ActionCommand {
+    private final Random random = new Random();
 
-
-    public InitActions(WorldMap worldMap) {
-        this.worldMap = worldMap;
+    public InitAction(WorldMap worldMap) {
+        super(worldMap);
     }
 
     @Override
@@ -25,16 +22,16 @@ public class InitActions implements ActionsCommand{
         int herbivorePerWorld = (int) (worldSize * 0.058);
         int predatorPerWorld = (int) (worldSize * 0.025);
 
-        placeEntity(rocksPerWorld, new RockFabrica());
-        placeEntity(treesPerWorld, new TreeFabrica());
-        placeEntity(grassPerWorld, new GrassFabrica());
-        placeEntity(herbivorePerWorld, new HerbivoreFabrica());
-        placeEntity(predatorPerWorld, new PredatorFabrica());
-
+        placeEntities(rocksPerWorld, new RockFabrica());
+        placeEntities(treesPerWorld, new TreeFabrica());
+        placeEntities(grassPerWorld, new GrassFabrica());
+        placeEntities(herbivorePerWorld, new HerbivoreFabrica());
+        placeEntities(predatorPerWorld, new PredatorFabrica());
     }
 
-    private void placeEntity(int entityPerWorld, EntityFabrica entityFabrica){
+    private void placeEntities(int entityPerWorld, EntityFabrica entityFabrica){
         int tempConuter = 0;
+        boolean isPlacedEntity = false;
         for (int i = 0; i < entityPerWorld; i++) {
             while (!isPlacedEntity){
                 if (worldMap.setEntityOnMap(

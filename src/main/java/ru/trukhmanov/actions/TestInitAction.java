@@ -9,10 +9,10 @@ import ru.trukhmanov.fabrica.PredatorFabrica;
 import ru.trukhmanov.searchAlgorithms.BreadthFirstSearchAlgorithm;
 
 // TODO: УДАЛИТЬ ИЗ ФИНАЛЬНОГО КОММИТА
-public class TestInitActions implements ActionsCommand {
-    private WorldMap worldMap;
-    public TestInitActions(WorldMap worldMap) {
-        this.worldMap = worldMap;
+public class TestInitAction extends ActionCommand {
+
+    public TestInitAction(WorldMap worldMap) {
+        super(worldMap);
     }
 
     @Override

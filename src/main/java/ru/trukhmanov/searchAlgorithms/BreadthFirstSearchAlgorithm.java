@@ -10,7 +10,7 @@ import java.util.*;
 
 /**
  * Самописная реализация алгоритма поиска в ширину (BFS)
- *  <a href="https://ru.wikipedia.org/wiki/Поиск_в_ширину">Подробнее об алгоритме</a>
+ *  <a href="https://en.wikipedia.org/wiki/Breadth-first_search">Подробнее об алгоритме</a>
  */
 public class BreadthFirstSearchAlgorithm implements PathfindingAlgorithm{
     private final WorldMap worldMap;
@@ -66,13 +66,8 @@ public class BreadthFirstSearchAlgorithm implements PathfindingAlgorithm{
     }
 
     private Queue<Coordinates> getAvailableEdges(Coordinates currentPosition) {
-        Coordinates edge1 = new Coordinates(currentPosition.x() + 1, currentPosition.y());
-        Coordinates edge2 = new Coordinates(currentPosition.x() - 1, currentPosition.y());
-        Coordinates edge3 = new Coordinates(currentPosition.x(), currentPosition.y() + 1);
-        Coordinates edge4 = new Coordinates(currentPosition.x(), currentPosition.y() - 1);
-
         Queue<Coordinates> result = new LinkedList<>();
-        for (var edge : Arrays.asList(edge1, edge2, edge3, edge4)){
+        for (var edge : worldMap.getNeighboringCell(currentPosition)){
             if (isValidCoordinates(edge)){
                 result.add(edge);
                 visitedCoordinates.add(edge);
@@ -83,12 +78,11 @@ public class BreadthFirstSearchAlgorithm implements PathfindingAlgorithm{
     }
 
     private boolean isValidCoordinates(Coordinates coordinates){
-        if (!worldMap.isCoordinatesInWorldMapBoundaries(coordinates)) return false;
         return !visitedCoordinates.contains(coordinates);
     }
 
     private List<Coordinates> reconstructPath(Coordinates startingPosition, Coordinates destination) {
-        List<Coordinates> result = new ArrayList<>();
+        List<Coordinates> result = new LinkedList<>();
         result.add(destination);
 
         Coordinates parent = childToParent.get(destination);
@@ -96,7 +90,6 @@ public class BreadthFirstSearchAlgorithm implements PathfindingAlgorithm{
             result.add(parent);
             parent = childToParent.get(parent);
         }
-        Collections.reverse(result);
-        return result;
+        return result.reversed();
     }
 }

@@ -11,8 +11,9 @@ public class Herbivore extends Creature{
         super(moveSpeed, healthPoints);
     }
 
-    public boolean eatGrass(Entity entity){
-        if (entity instanceof Grass grass){
+    @Override
+    public boolean tryEatEntity(Entity entity) {
+        if (entity instanceof Grass) {
             healHealthPoints(10);
             return true;
         }
