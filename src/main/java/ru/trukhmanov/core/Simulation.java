@@ -1,6 +1,9 @@
 package ru.trukhmanov.core;
 
-import ru.trukhmanov.core.actions.*;
+import ru.trukhmanov.core.actions.ActionCommand;
+import ru.trukhmanov.core.actions.InitAction;
+import ru.trukhmanov.core.actions.MoveAndTryEatForAllCreaturesAction;
+import ru.trukhmanov.core.actions.RestoreStaminaForAllCreaturesAction;
 import ru.trukhmanov.util.Renderer;
 import ru.trukhmanov.util.searchAlgorithms.BreadthFirstSearchAlgorithm;
 
@@ -11,29 +14,24 @@ import java.util.List;
  * Главынй класс приожения, отвечает за симуляуию мира
  */
 public class Simulation {
-    private WorldMap worldMap;
-    private Renderer renderer;
+    private final WorldMap worldMap;
+    private final Renderer renderer;
     private int turnCounter = 0;
 
-    private final ActionCommand initAction;
+    private ActionCommand initAction;
     private final List<ActionCommand> turnActions = new LinkedList<>();
 
-    /** Конструктор для ручного тестирования симуляции */
-    public Simulation(boolean test){
-        this.worldMap = new WorldMap(5, 5);
-
-        renderer = new Renderer(worldMap);
-        initAction = new TestInitAction(worldMap);
-
-        turnActions.add(new MoveAndTryEatForAllCreaturesAction(worldMap, new BreadthFirstSearchAlgorithm(worldMap)));
-        turnActions.add(new RestoreStaminaForAllCreaturesAction(worldMap));
+    public Simulation(){
+        this(15, 15);
     }
 
-    public Simulation(WorldMap worldMap){
-        this.worldMap = worldMap;
+    public Simulation(int height, int weight){
+        this.worldMap = new WorldMap(height, weight);
 
         renderer = new Renderer(worldMap);
         initAction = new InitAction(worldMap);
+        turnActions.add(new MoveAndTryEatForAllCreaturesAction(worldMap, new BreadthFirstSearchAlgorithm(worldMap)));
+        turnActions.add(new RestoreStaminaForAllCreaturesAction(worldMap));
     }
 
     public void initSimulation(){

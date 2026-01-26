@@ -32,9 +32,9 @@ public class Renderer {
             throw new RuntimeException(e);
         }
         System.out.println();
-        for (int h = worldMap.maximumHeight; h > 0; h--){
+        for (int h = worldMap.maxHeight; h >= WorldMap.MIN_HEIGHT; h--){
             StringBuilder line = new StringBuilder(String.format("%2d ", h));
-            for (int w = 1; w < worldMap.maximumWeight + 1; w++){
+            for (int w = WorldMap.MIN_WIDTH; w < worldMap.maxWidth + 1; w++){
                 Coordinates coordinates = new Coordinates(w, h);
                 if (worldMap.isEmptyCell(coordinates)) line.append(EMPTY_CELL_SPRITE);
                 else line.append(getEntitySprite(worldMap.getEntityByCoordinates(coordinates)));

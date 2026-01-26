@@ -31,6 +31,7 @@ public class MoveAndTryEatForAllCreaturesAction extends ActionCommand{
     @Override
     public void execute() {
         for(Coordinates coordinates : worldMap.getCoordinatesOfCreatures()) {
+            if (worldMap.isEmptyCell(coordinates)) continue;
             initForCurrentCreature(coordinates);
             moveCreatureFromCoordinatesToGoal();
             tryEatGoal();
@@ -39,7 +40,6 @@ public class MoveAndTryEatForAllCreaturesAction extends ActionCommand{
     }
 
     private void initForCurrentCreature(Coordinates coordinates) {
-        if (worldMap.isEmptyCell(coordinates)) return;
         curCoordinates = coordinates;
         curCreature = (Creature) worldMap.getEntityByCoordinates(coordinates);
         curPathToNearestGoal = getPathToNearestGoal();
@@ -58,7 +58,7 @@ public class MoveAndTryEatForAllCreaturesAction extends ActionCommand{
         if (curPathToNearestGoal.isEmpty()) return;
         while (curPathToNearestGoal.size() != REACHABLE_DISTANCE){
             if (!curCreature.canMove()) return;
-            curCoordinates = worldMap.moveCreatureFromCoordinateToCoordinate(curCoordinates, curPathToNearestGoal.removeFirst());
+            curCoordinates = worldMap.moveCreatureFromCellToOtherCell(curCoordinates, curPathToNearestGoal.removeFirst());
             curCreature.makeMove();
         }
     }

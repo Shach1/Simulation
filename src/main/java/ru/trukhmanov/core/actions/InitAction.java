@@ -30,22 +30,25 @@ public class InitAction extends ActionCommand {
     }
 
     private void placeEntities(int entityPerWorld, EntityFabrica entityFabrica){
-        int tempConuter = 0;
-        boolean isPlacedEntity = false;
-        for (int i = 0; i < entityPerWorld; i++) {
-            while (!isPlacedEntity){
-                if (worldMap.setEntityOnMap(
-                        new Coordinates(
-                                random.nextInt(worldMap.maximumHeight) + 1,
-                                random.nextInt(worldMap.maximumWeight) + 1
-                        ),
-                        entityFabrica.getEntity())){
-                    tempConuter++;
-                    isPlacedEntity = true;
-                }
-            }
-            isPlacedEntity = false;
+        int entityCounter = 0;
+        while (entityCounter < entityPerWorld){
+            placeOneEntity(entityFabrica);
+            entityCounter++;
         }
-        System.out.printf("count of %s: %d\n", entityFabrica.getEntity().getClass().getSimpleName(), tempConuter);
+        System.out.printf("count of %s: %d\n", entityFabrica.getEntity().getClass().getSimpleName(), entityCounter);
+    }
+
+    private void placeOneEntity(EntityFabrica entityFabrica) {
+        boolean isPlacedEntity = false;
+        while (!isPlacedEntity){
+            if (worldMap.setEntityOnMap(
+                    new Coordinates(
+                            random.nextInt(worldMap.maxHeight) + 1,
+                            random.nextInt(worldMap.maxWidth) + 1
+                    ),
+                    entityFabrica.getEntity())){
+                isPlacedEntity = true;
+            }
+        }
     }
 }
