@@ -19,6 +19,16 @@ public class Renderer {
     }
 
     public void renderMap(){
+        renderMap(0);
+    }
+
+    public void renderMap(long delay){
+        if (delay < 0) throw new IllegalArgumentException("delay cannot be less than zero. delay = " + delay);
+        try{
+            Thread.sleep(delay);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         System.out.println();
         for (int h = worldMap.maximumHeight; h > 0; h--){
             StringBuilder line = new StringBuilder(String.format("%2d ", h));

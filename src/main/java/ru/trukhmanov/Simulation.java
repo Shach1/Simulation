@@ -24,7 +24,7 @@ public class Simulation {
         renderer = new Renderer(worldMap);
         initAction = new TestInitAction(worldMap);
 
-        turnActions.add(new MoveAndTryEatForAllCreaturesAction(worldMap, renderer, new BreadthFirstSearchAlgorithm(worldMap)));
+        turnActions.add(new MoveAndTryEatForAllCreaturesAction(worldMap, new BreadthFirstSearchAlgorithm(worldMap)));
         turnActions.add(new RestoreStaminaForAllCreaturesAction(worldMap));
     }
 

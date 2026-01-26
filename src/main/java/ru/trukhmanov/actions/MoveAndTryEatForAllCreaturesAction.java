@@ -13,37 +13,45 @@ import java.util.List;
 
 public class MoveAndTryEatForAllCreaturesAction extends ActionCommand{
 
-    public static final int REACHABLE_DISTANCE = 1;
+    private static final int REACHABLE_DISTANCE = 1;
+    private static final long RENDER_DELAY = 2300;
     private final Renderer renderer;
     private final PathfindingAlgorithm pathfindingAlgorithm;
-    private List<Coordinates> curPathToNearestGoal;
     private Coordinates curCoordinates;
     private Creature curCreature;
+    private List<Coordinates> curPathToNearestGoal;
 
-    public MoveAndTryEatForAllCreaturesAction(WorldMap worldMap, Renderer renderer, PathfindingAlgorithm pathfindingAlgorithm) {
+
+    public MoveAndTryEatForAllCreaturesAction(WorldMap worldMap, PathfindingAlgorithm pathfindingAlgorithm) {
         super(worldMap);
-        this.renderer = renderer;
+        this.renderer = new Renderer(worldMap);
         this.pathfindingAlgorithm = pathfindingAlgorithm;
     }
 
     @Override
     public void execute() {
         for(Coordinates coordinates : worldMap.getCoordinatesOfCreatures()) {
-            curCoordinates = coordinates;
-            curCreature = (Creature) worldMap.getEntityByCoordinates(coordinates);
-            curPathToNearestGoal = getPathToNearestGoal();
+            initForCurrentCreature(coordinates);
             moveCreatureFromCoordinatesToGoal();
-            getTryEatGoal();
-            renderer.renderMap();
+            tryEatGoal();
+            renderer.renderMap(RENDER_DELAY);
         }
     }
 
-    private void getTryEatGoal() {
-        if (curPathToNearestGoal.size() == REACHABLE_DISTANCE){
-            Coordinates goalCoordinates = curPathToNearestGoal.getFirst();
-            Entity goal = worldMap.getEntityByCoordinates(goalCoordinates);
-            if (curCreature.tryEatEntity(goal)) worldMap.removeEntityFromMap(goalCoordinates);
+    private void initForCurrentCreature(Coordinates coordinates) {
+        if (worldMap.isEmptyCell(coordinates)) return;
+        curCoordinates = coordinates;
+        curCreature = (Creature) worldMap.getEntityByCoordinates(coordinates);
+        curPathToNearestGoal = getPathToNearestGoal();
+    }
+
+    private List<Coordinates> getPathToNearestGoal(){
+        if (curCreature instanceof Predator){
+            return pathfindingAlgorithm.findPathToNearestHerbivore(curCoordinates);
+        }else if (curCreature instanceof Herbivore){
+            return pathfindingAlgorithm.findPathToNearestGrass(curCoordinates);
         }
+        else throw new IllegalArgumentException("Undefined creature type. creature = " + curCreature.getClass().getSimpleName());
     }
 
     private void moveCreatureFromCoordinatesToGoal(){
@@ -55,12 +63,11 @@ public class MoveAndTryEatForAllCreaturesAction extends ActionCommand{
         }
     }
 
-    private List<Coordinates> getPathToNearestGoal(){
-        if (curCreature instanceof Predator){
-            return pathfindingAlgorithm.findPathToNearestHerbivore(curCoordinates);
-        }else if (curCreature instanceof Herbivore){
-            return pathfindingAlgorithm.findPathToNearestGrass(curCoordinates);
+    private void tryEatGoal() {
+        if (curPathToNearestGoal.size() == REACHABLE_DISTANCE){
+            Coordinates goalCoordinates = curPathToNearestGoal.getFirst();
+            Entity goal = worldMap.getEntityByCoordinates(goalCoordinates);
+            if (curCreature.tryEatEntity(goal)) worldMap.removeEntityFromMap(goalCoordinates);
         }
-        else throw new IllegalArgumentException("Undefined creature type. creature = " + curCreature.getClass().getSimpleName());
     }
 }
