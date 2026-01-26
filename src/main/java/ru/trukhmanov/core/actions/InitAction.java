@@ -1,8 +1,8 @@
-package ru.trukhmanov.actions;
+package ru.trukhmanov.core.actions;
 
-import ru.trukhmanov.Coordinates;
-import ru.trukhmanov.WorldMap;
-import ru.trukhmanov.fabrica.*;
+import ru.trukhmanov.core.Coordinates;
+import ru.trukhmanov.core.WorldMap;
+import ru.trukhmanov.entities.fabrica.*;
 
 import java.util.Random;
 

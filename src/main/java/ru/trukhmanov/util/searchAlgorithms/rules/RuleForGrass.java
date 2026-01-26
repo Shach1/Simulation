@@ -1,7 +1,7 @@
-package ru.trukhmanov.searchAlgorithms.rules;
+package ru.trukhmanov.util.searchAlgorithms.rules;
 
-import ru.trukhmanov.Coordinates;
-import ru.trukhmanov.WorldMap;
+import ru.trukhmanov.core.Coordinates;
+import ru.trukhmanov.core.WorldMap;
 import ru.trukhmanov.entities.Grass;
 
 public class RuleForGrass implements EntitySearchRule{

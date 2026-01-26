@@ -1,4 +1,4 @@
-package ru.trukhmanov.fabrica;
+package ru.trukhmanov.entities.fabrica;
 
 import ru.trukhmanov.entities.Entity;
 

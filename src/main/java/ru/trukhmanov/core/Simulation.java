@@ -1,7 +1,8 @@
-package ru.trukhmanov;
+package ru.trukhmanov.core;
 
-import ru.trukhmanov.actions.*;
-import ru.trukhmanov.searchAlgorithms.BreadthFirstSearchAlgorithm;
+import ru.trukhmanov.core.actions.*;
+import ru.trukhmanov.util.Renderer;
+import ru.trukhmanov.util.searchAlgorithms.BreadthFirstSearchAlgorithm;
 
 import java.util.LinkedList;
 import java.util.List;

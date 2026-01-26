@@ -1,13 +1,13 @@
-package ru.trukhmanov.actions;
+package ru.trukhmanov.core.actions;
 
-import ru.trukhmanov.Coordinates;
-import ru.trukhmanov.Renderer;
-import ru.trukhmanov.WorldMap;
+import ru.trukhmanov.core.Coordinates;
+import ru.trukhmanov.core.WorldMap;
 import ru.trukhmanov.entities.Creature;
 import ru.trukhmanov.entities.Entity;
 import ru.trukhmanov.entities.Herbivore;
 import ru.trukhmanov.entities.Predator;
-import ru.trukhmanov.searchAlgorithms.PathfindingAlgorithm;
+import ru.trukhmanov.util.Renderer;
+import ru.trukhmanov.util.searchAlgorithms.PathfindingAlgorithm;
 
 import java.util.List;
 

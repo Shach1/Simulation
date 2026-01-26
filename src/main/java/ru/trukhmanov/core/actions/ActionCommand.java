@@ -1,6 +1,6 @@
-package ru.trukhmanov.actions;
+package ru.trukhmanov.core.actions;
 
-import ru.trukhmanov.WorldMap;
+import ru.trukhmanov.core.WorldMap;
 
 public abstract class ActionCommand {
     protected final WorldMap worldMap;

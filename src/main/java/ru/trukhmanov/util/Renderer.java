@@ -1,5 +1,7 @@
-package ru.trukhmanov;
+package ru.trukhmanov.util;
 
+import ru.trukhmanov.core.Coordinates;
+import ru.trukhmanov.core.WorldMap;
 import ru.trukhmanov.entities.*;
 
 /**

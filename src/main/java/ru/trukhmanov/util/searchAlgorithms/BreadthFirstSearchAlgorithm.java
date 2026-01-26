@@ -1,10 +1,10 @@
-package ru.trukhmanov.searchAlgorithms;
+package ru.trukhmanov.util.searchAlgorithms;
 
-import ru.trukhmanov.Coordinates;
-import ru.trukhmanov.WorldMap;
-import ru.trukhmanov.searchAlgorithms.rules.EntitySearchRule;
-import ru.trukhmanov.searchAlgorithms.rules.RuleForGrass;
-import ru.trukhmanov.searchAlgorithms.rules.RuleForHerbivore;
+import ru.trukhmanov.core.Coordinates;
+import ru.trukhmanov.core.WorldMap;
+import ru.trukhmanov.util.searchAlgorithms.rules.EntitySearchRule;
+import ru.trukhmanov.util.searchAlgorithms.rules.RuleForGrass;
+import ru.trukhmanov.util.searchAlgorithms.rules.RuleForHerbivore;
 
 import java.util.*;
 

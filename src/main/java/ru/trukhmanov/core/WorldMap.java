@@ -1,4 +1,4 @@
-package ru.trukhmanov;
+package ru.trukhmanov.core;
 
 import ru.trukhmanov.entities.Creature;
 import ru.trukhmanov.entities.Entity;

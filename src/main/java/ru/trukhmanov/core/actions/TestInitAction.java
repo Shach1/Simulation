@@ -1,12 +1,12 @@
-package ru.trukhmanov.actions;
+package ru.trukhmanov.core.actions;
 
-import ru.trukhmanov.Coordinates;
-import ru.trukhmanov.WorldMap;
-import ru.trukhmanov.fabrica.EntityFabrica;
-import ru.trukhmanov.fabrica.GrassFabrica;
-import ru.trukhmanov.fabrica.HerbivoreFabrica;
-import ru.trukhmanov.fabrica.PredatorFabrica;
-import ru.trukhmanov.searchAlgorithms.BreadthFirstSearchAlgorithm;
+import ru.trukhmanov.core.Coordinates;
+import ru.trukhmanov.core.WorldMap;
+import ru.trukhmanov.entities.fabrica.EntityFabrica;
+import ru.trukhmanov.entities.fabrica.GrassFabrica;
+import ru.trukhmanov.entities.fabrica.HerbivoreFabrica;
+import ru.trukhmanov.entities.fabrica.PredatorFabrica;
+import ru.trukhmanov.util.searchAlgorithms.BreadthFirstSearchAlgorithm;
 
 // TODO: УДАЛИТЬ ИЗ ФИНАЛЬНОГО КОММИТА
 public class TestInitAction extends ActionCommand {

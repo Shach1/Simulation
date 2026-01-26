@@ -1,4 +1,4 @@
-package ru.trukhmanov;
+package ru.trukhmanov.core;
 
 /**
  * Класс представляет собой координаты на двухмерной плоскости

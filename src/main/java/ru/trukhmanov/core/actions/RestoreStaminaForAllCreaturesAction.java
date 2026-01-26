@@ -1,6 +1,6 @@
-package ru.trukhmanov.actions;
+package ru.trukhmanov.core.actions;
 
-import ru.trukhmanov.WorldMap;
+import ru.trukhmanov.core.WorldMap;
 import ru.trukhmanov.entities.Creature;
 
 public class RestoreStaminaForAllCreaturesAction extends ActionCommand{

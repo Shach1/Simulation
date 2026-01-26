@@ -1,6 +1,6 @@
-package ru.trukhmanov.searchAlgorithms;
+package ru.trukhmanov.util.searchAlgorithms;
 
-import ru.trukhmanov.Coordinates;
+import ru.trukhmanov.core.Coordinates;
 
 import java.util.List;
 
