@@ -21,11 +21,11 @@ public class Simulation {
     private ActionCommand initAction;
     private final List<ActionCommand> turnActions = new LinkedList<>();
 
-    public Simulation(){
-        this(15, 15);
+    public Simulation() {
+        this(10, 10);
     }
 
-    public Simulation(int height, int weight){
+    public Simulation(int height, int weight) {
         this.worldMap = new WorldMap(height, weight);
 
         renderer = new Renderer(worldMap);
@@ -34,24 +34,29 @@ public class Simulation {
         turnActions.add(new RestoreStaminaForAllCreaturesAction(worldMap));
     }
 
-    public void initSimulation(){
+    public void initSimulation() {
         initAction.execute();
         renderer.renderMap();
         startSimulation();
     }
 
-    private void startSimulation(){
-        // TODO: игровой цикл
-        for(var obj : turnActions) {
+    private void startSimulation() {
+        System.out.printf("""
+                +----------------------+
+                | number of turns: %3s |
+                +----------------------+
+                """, turnCounter);
+        for (var obj : turnActions) {
             obj.execute();
         }
+        turnCounter++;
     }
 
-    private void pauseSimulation(){
+    private void pauseSimulation() {
         // TODO: остановкка бесконечного ццикла симуляции
     }
 
-    private void nextTurn(){
+    private void nextTurn() {
         // TODO: симуляцуия одного хода в конце renderer.renderMap()
     }
 }

@@ -22,52 +22,62 @@ public class MoveAndTryEatForAllCreaturesAction extends ActionCommand{
     private List<Coordinates> curPathToNearestGoal;
 
 
-    public MoveAndTryEatForAllCreaturesAction(WorldMap worldMap, PathfindingAlgorithm pathfindingAlgorithm) {
+    public MoveAndTryEatForAllCreaturesAction(WorldMap worldMap, PathfindingAlgorithm pathfindingAlgorithm){
         super(worldMap);
         this.renderer = new Renderer(worldMap);
         this.pathfindingAlgorithm = pathfindingAlgorithm;
     }
 
     @Override
-    public void execute() {
-        for(Coordinates coordinates : worldMap.getCoordinatesOfCreatures()) {
-            if (worldMap.isEmptyCell(coordinates)) continue;
+    public void execute(){
+        for(Coordinates coordinates : worldMap.getCoordinatesOfCreatures()){
+            if(worldMap.isEmptyCell(coordinates)) continue;
             initForCurrentCreature(coordinates);
+            renderStep();
+            if(curPathToNearestGoal.isEmpty()) continue;
             moveCreatureFromCoordinatesToGoal();
             tryEatGoal();
-            renderer.renderMap(RENDER_DELAY);
+            renderStep();
         }
     }
 
-    private void initForCurrentCreature(Coordinates coordinates) {
+    private void initForCurrentCreature(Coordinates coordinates){
         curCoordinates = coordinates;
         curCreature = (Creature) worldMap.getEntityByCoordinates(coordinates);
         curPathToNearestGoal = getPathToNearestGoal();
     }
 
     private List<Coordinates> getPathToNearestGoal(){
-        if (curCreature instanceof Predator){
+        if(curCreature instanceof Predator){
             return pathfindingAlgorithm.findPathToNearestHerbivore(curCoordinates);
-        }else if (curCreature instanceof Herbivore){
+        } else if(curCreature instanceof Herbivore){
             return pathfindingAlgorithm.findPathToNearestGrass(curCoordinates);
+        } else
+            throw new IllegalArgumentException("Undefined creature type. creature = " + curCreature.getClass().getSimpleName());
+    }
+
+    private void renderStep(){
+        try{
+            Thread.sleep(RENDER_DELAY);
+            renderer.rednerMapWithHighlightedCoordinates(curCoordinates);
+        } catch (InterruptedException e){
+            throw new RuntimeException(e);
         }
-        else throw new IllegalArgumentException("Undefined creature type. creature = " + curCreature.getClass().getSimpleName());
     }
 
     private void moveCreatureFromCoordinatesToGoal(){
-        if (curPathToNearestGoal.isEmpty()) return;
-        while (curPathToNearestGoal.size() != REACHABLE_DISTANCE){
-            if (!curCreature.canMove()) return;
+        while(curPathToNearestGoal.size() != REACHABLE_DISTANCE){
+            if(!curCreature.canMove()) return;
             curCoordinates = worldMap.moveCreatureFromCellToOtherCell(curCoordinates, curPathToNearestGoal.removeFirst());
             curCreature.makeMove();
         }
     }
 
-    private void tryEatGoal() {
-        if (curPathToNearestGoal.size() == REACHABLE_DISTANCE){
+    private void tryEatGoal(){
+        if(curPathToNearestGoal.size() == REACHABLE_DISTANCE){
             Coordinates goalCoordinates = curPathToNearestGoal.getFirst();
             Entity goal = worldMap.getEntityByCoordinates(goalCoordinates);
-            if (curCreature.tryEatEntity(goal)) worldMap.removeEntityFromMap(goalCoordinates);
+            if(curCreature.tryEatEntity(goal)) worldMap.removeEntityFromMap(goalCoordinates);
         }
     }
 }
