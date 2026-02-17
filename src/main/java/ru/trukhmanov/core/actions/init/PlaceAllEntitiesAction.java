@@ -1,15 +1,16 @@
-package ru.trukhmanov.core.actions;
+package ru.trukhmanov.core.actions.init;
 
 import ru.trukhmanov.core.Coordinates;
 import ru.trukhmanov.core.WorldMap;
+import ru.trukhmanov.core.actions.ActionCommand;
 import ru.trukhmanov.entities.fabrica.*;
 
 import java.util.Random;
 
-public class InitAction extends ActionCommand {
+public class PlaceAllEntitiesAction extends ActionCommand{
     private final Random random = new Random();
 
-    public InitAction(WorldMap worldMap) {
+    public PlaceAllEntitiesAction(WorldMap worldMap) {
         super(worldMap);
     }
 
