@@ -18,6 +18,10 @@ public class BreadthFirstSearchAlgorithm implements PathfindingAlgorithm{
     private Map<Coordinates, Coordinates> childToParent;
     private Queue<Coordinates> availableEdges;
 
+    public BreadthFirstSearchAlgorithm(WorldMap worldMap){
+        this.worldMap = worldMap;
+    }
+
     @Override
     public List<Coordinates> findPathToNearestGrass(Coordinates startingPosition) {
         return findPathByRule(startingPosition, new RuleForGrass());
@@ -26,18 +30,6 @@ public class BreadthFirstSearchAlgorithm implements PathfindingAlgorithm{
     @Override
     public List<Coordinates> findPathToNearestHerbivore(Coordinates startingPosition) {
         return findPathByRule(startingPosition, new RuleForHerbivore());
-    }
-
-    public BreadthFirstSearchAlgorithm(WorldMap worldMap){
-        this.worldMap = worldMap;
-    }
-
-    private void searchInitialization(Coordinates startingPosition){
-        visitedCoordinates = new HashSet<>();
-        childToParent = new HashMap<>();
-        visitedCoordinates.add(startingPosition);
-        childToParent.put(startingPosition, null);
-        availableEdges = getAvailableEdges(startingPosition);
     }
 
     private List<Coordinates> findPathByRule(Coordinates startingPosition, EntitySearchRule entitySearchRule){
@@ -56,6 +48,14 @@ public class BreadthFirstSearchAlgorithm implements PathfindingAlgorithm{
             addAvailableEdgesFromCurrentEdges();
         }
         return Collections.emptyList();
+    }
+
+    private void searchInitialization(Coordinates startingPosition){
+        visitedCoordinates = new HashSet<>();
+        childToParent = new HashMap<>();
+        visitedCoordinates.add(startingPosition);
+        childToParent.put(startingPosition, null);
+        availableEdges = getAvailableEdges(startingPosition);
     }
 
     private void addAvailableEdgesFromCurrentEdges() {

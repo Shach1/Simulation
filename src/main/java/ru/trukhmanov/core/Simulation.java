@@ -5,13 +5,11 @@ import ru.trukhmanov.core.actions.init.FirstRenderMapAction;
 import ru.trukhmanov.core.actions.init.PlaceAllEntitiesAction;
 import ru.trukhmanov.core.actions.turn.MoveAndTryEatForAllCreaturesAction;
 import ru.trukhmanov.core.actions.turn.RestoreStaminaForAllCreaturesAction;
-import ru.trukhmanov.util.Renderer;
 import ru.trukhmanov.util.searchAlgorithms.BreadthFirstSearchAlgorithm;
 
 import java.util.LinkedList;
 import java.util.List;
 
-;
 
 /**
  * Главынй класс приожения, отвечает за симуляуию мира
@@ -28,8 +26,6 @@ public class Simulation{
             | Enter 'u' to unpause.|
             +----------------------+
             """;
-    private final WorldMap worldMap;
-    private final Renderer renderer;
     private final List<ActionCommand> turnActions = new LinkedList<>();
     private final List<ActionCommand> initActions = new LinkedList<>();
 
@@ -41,9 +37,8 @@ public class Simulation{
     }
 
     public Simulation(int height, int weight){
-        this.worldMap = new WorldMap(height, weight);
+        WorldMap worldMap = new WorldMap(height, weight);
 
-        renderer = new Renderer(worldMap);
         initActions.add(new PlaceAllEntitiesAction(worldMap));
         initActions.add(new FirstRenderMapAction(worldMap));
         turnActions.add(new MoveAndTryEatForAllCreaturesAction(worldMap, new BreadthFirstSearchAlgorithm(worldMap)));

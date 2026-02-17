@@ -23,6 +23,7 @@ public class PlaceAllEntitiesAction extends ActionCommand{
         int herbivorePerWorld = (int) (worldSize * 0.058);
         int predatorPerWorld = (int) (worldSize * 0.025);
 
+        System.out.println("Placed entities:");
         placeEntities(rocksPerWorld, new RockFabrica());
         placeEntities(treesPerWorld, new TreeFabrica());
         placeEntities(grassPerWorld, new GrassFabrica());
